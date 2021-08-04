@@ -8,3 +8,12 @@ The data are publicly available <a href="https://astronn.readthedocs.io/en/lates
 ## Exploratory Data Analysis
 
 <img src="https://github.com/jstodd867/galaxy-classification/blob/main/imgs/class_examples.png">
+
+## Results
+
+| Model | Accuracy |
+| ----- | ---------|
+| Baseline| 14.9%|
+| CNN | 67 %|
+| Random Forest|  %|
+| Gradient Boost|  %|
