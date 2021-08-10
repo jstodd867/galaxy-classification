@@ -128,6 +128,15 @@ def show_final_history(history):
     ax[1].legend(fontsize=12)
     #plt.show()
 
+def plot_cm(y_true, y_predict, color_map = 'plasma'):
+    '''Plot the normalized confusion matrix'''
+    cmx = confusion_matrix(y_true, y_predict,normalize='true')
+    disp = ConfusionMatrixDisplay(confusion_matrix=np.round(cmx,2))
+    fig, ax = plt.subplots(figsize=(10,8))
+    ax.set_title('Normalized Confusion Matrix')
+    disp.plot(cmap=color_map,ax=ax)
+    plt.show()
+
 if __name__=='__main__':
     CNN = create_CNN1((3,3))
     CNN.summary()

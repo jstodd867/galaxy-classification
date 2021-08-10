@@ -10,6 +10,7 @@ from tensorflow.keras import layers
 keras = tf.keras
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 from keras.wrappers.scikit_learn import KerasClassifier
+import random
 
 class Galaxies():
 
@@ -20,19 +21,42 @@ class Galaxies():
         self.images = None
         self.labels = None
 
+    def count_classes(self, y, ax, xtick_labels=None):
+        xtick_labels = self.label_names
+        labels, count = np.unique(y, return_counts = True)
+        ax.bar(labels, count, tick_label = xtick_labels)
+        ax.set_xticklabels(xtick_labels, rotation=60)
+        ax.set_title('Class Occurrences in Dataset')
+        plt.tight_layout()
+        plt.show()
+    
     def load_data(self):
         with h5py.File(self.path, 'r') as F:
             self.images = np.array(F['images']).astype(np.uint8)
             self.labels = np.array(F['ans'])
         return self.images, self.labels
 
-    def plot_few(self, random=False):
+    def plot_few(self, rand=False, class_subset = None):
         fig, axs = plt.subplots(2,5, figsize=(15,5))
+        if class_subset in self.class_dict:
+            print(f'Plotting {self.class_dict[class_subset]} only')
+            classes = [class_subset] * 10
+        else:
+            classes = sorted(self.class_dict.keys())
 
-        for idx, plot in enumerate(axs.flatten()):
-            class_idx = np.argwhere(self.labels==idx)[0][0]
-            plot.imshow(self.images[class_idx])
-            plot.set_title(self.class_dict[self.labels[class_idx]])
+        for i, (idx, plot) in enumerate(zip(classes, axs.flatten())):
+            #print(i, idx)
+            class_idxs = np.argwhere(self.labels==idx)
+            #print(class_idxs)
+            if rand == True:
+                plt_idx = random.choice(class_idxs[:,0])
+            elif class_subset in self.class_dict:
+                plt_idx = class_idxs[i][0]
+            else:
+                plt_idx = class_idxs[0][0]
+            #print(plt_idx)
+            plot.imshow(self.images[plt_idx])
+            plot.set_title(self.class_dict[self.labels[plt_idx]], fontsize=14)
             plot.axis('off')
         plt.show()
 

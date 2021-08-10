@@ -54,8 +54,14 @@ if __name__=='__main__':
     print(f'Baseline Accuracy: {baseline_score}')
 
     # Create neural network
-    CNN = CNNs.create_CNN2((3,3), in_shape=(88,88,3), drop_out=0)
+    #CNN = CNNs.create_CNN5((3,3), in_shape=(88,88,3), drop_out=0)
     #CNN_history = CNN.fit(train_images, train_labels, epochs=20, validation_data=(test_images, test_labels))
 
-    save_filename = 'CNN2_aug_3x3_00drop_88in_30epochs{}'.format(datetime.now().strftime("%Y%m%d"))
-    train_CNN(CNN, save_filename)
+    #save_filename = 'CNN5_aug_3x3_00drop_88in_30epochs{}'.format(datetime.now().strftime("%Y%m%d"))
+    #CNN_trained = train_CNN(CNN, save_filename)
+
+    # Load saved CNN
+    CNN_trained = keras.models.load_model('saved_models/CNN5_aug_3x3_00drop_88in_50epochs20210809.h5')
+
+    # Plot confusion matrix for test data
+    CNNs.plot_cm(test_labels, CNN_trained.predict_classes(test_images))
