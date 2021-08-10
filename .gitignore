@@ -1,5 +1,5 @@
 data
-*.h5
+saved_models/archive
 *.ipynb_checkpoints
 *.DS_Store
 *.cpython-38.pyc
