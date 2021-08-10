@@ -1,3 +1,6 @@
+data
 *.h5
 *.ipynb_checkpoints
 *.DS_Store
+*.cpython-38.pyc
+__pycache__

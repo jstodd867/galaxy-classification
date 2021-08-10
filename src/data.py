@@ -11,7 +11,7 @@ keras = tf.keras
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 from keras.wrappers.scikit_learn import KerasClassifier
 
-class Dataset():
+class Galaxies():
 
     def __init__(self, path, label_names = ['Disturbed', 'Merging', 'Round Smooth', 'In-between Round Smooth', 'Cigar Shaped Smooth', 'Barred Spiral', 'Unbarred Tight Spiral', 'Unbarred Loose Spiral', 'Edge-on without Bulge', 'Edge-on with Bulge']):
         self.path = path
@@ -45,6 +45,6 @@ class Dataset():
         return resized_ims.numpy()[:,low:high, low:high, :]
 
 if __name__=='__main__':
-    data = Dataset('data/Galaxy10_DECals.h5')
+    data = Galaxies('data/Galaxy10_DECals.h5')
     images, labels = data.load_data()
     data.plot_few()
