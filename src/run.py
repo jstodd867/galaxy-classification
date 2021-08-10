@@ -33,7 +33,7 @@ if __name__=='__main__':
     print(f'Baseline Accuracy: {baseline_score}')
 
     # Create neural network
-    CNN = CNNs.create_CNN5((3,3), in_shape=(88,88,3), drop_out=0)
+    CNN = CNNs.create_CNN1((3,3), in_shape=(88,88,3), drop_out=0)
     #CNN_history = CNN.fit(train_images, train_labels, epochs=20, validation_data=(test_images, test_labels))
 
     datagen = keras.preprocessing.image.ImageDataGenerator(
@@ -44,11 +44,12 @@ if __name__=='__main__':
 
     CNN_aug = CNN.fit(datagen.flow(train_images, train_labels, batch_size=32),
          validation_data=(test_images, test_labels),
-         steps_per_epoch=len(train_images) // 32, epochs=50)
+         steps_per_epoch=len(train_images) // 32, epochs=30)
     CNN.evaluate(test_images, test_labels)
-    save_filename = 'CNN5_aug_3x3_00drop_88in_50epochs{}'.format(datetime.now().strftime("%Y%m%d"))
+    save_filename = 'CNN1_aug_3x3_00drop_88in_30epochs{}'.format(datetime.now().strftime("%Y%m%d"))
     CNNs.show_final_history(CNN_aug)
     plt.savefig(os.path.join('imgs',save_filename + '.png'))
+    plt.close()
 
     saved_model_path = os.path.join('saved_models', save_filename + '.h5')
     CNN.save(saved_model_path)
