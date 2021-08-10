@@ -15,6 +15,27 @@ from data import Galaxies
 import CNNs
 from datetime import datetime
 
+def train_CNN(CNN, save_filename):
+    datagen = keras.preprocessing.image.ImageDataGenerator(
+    rotation_range=45,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    vertical_flip=True)
+
+    CNN_aug = CNN.fit(datagen.flow(train_images, train_labels, batch_size=32),
+         validation_data=(test_images, test_labels),
+         steps_per_epoch=len(train_images) // 32, epochs=30)
+    CNN.evaluate(test_images, test_labels)
+    
+    CNNs.show_final_history(CNN_aug)
+    plt.savefig(os.path.join('imgs',save_filename + '.png'))
+    plt.show()
+    plt.close()
+
+    saved_model_path = os.path.join('saved_models', save_filename + '.h5')
+    CNN.save(saved_model_path)
+    return CNN_aug
+
 if __name__=='__main__':
     #data = Galaxies('data/Galaxy10_DECals.h5')
     #images, labels = data.load_data()
@@ -33,23 +54,8 @@ if __name__=='__main__':
     print(f'Baseline Accuracy: {baseline_score}')
 
     # Create neural network
-    CNN = CNNs.create_CNN1((3,3), in_shape=(88,88,3), drop_out=0)
+    CNN = CNNs.create_CNN2((3,3), in_shape=(88,88,3), drop_out=0)
     #CNN_history = CNN.fit(train_images, train_labels, epochs=20, validation_data=(test_images, test_labels))
 
-    datagen = keras.preprocessing.image.ImageDataGenerator(
-    rotation_range=45,
-    zoom_range=0.2,
-    horizontal_flip=True,
-    vertical_flip=True)
-
-    CNN_aug = CNN.fit(datagen.flow(train_images, train_labels, batch_size=32),
-         validation_data=(test_images, test_labels),
-         steps_per_epoch=len(train_images) // 32, epochs=30)
-    CNN.evaluate(test_images, test_labels)
-    save_filename = 'CNN1_aug_3x3_00drop_88in_30epochs{}'.format(datetime.now().strftime("%Y%m%d"))
-    CNNs.show_final_history(CNN_aug)
-    plt.savefig(os.path.join('imgs',save_filename + '.png'))
-    plt.close()
-
-    saved_model_path = os.path.join('saved_models', save_filename + '.h5')
-    CNN.save(saved_model_path)
+    save_filename = 'CNN2_aug_3x3_00drop_88in_30epochs{}'.format(datetime.now().strftime("%Y%m%d"))
+    train_CNN(CNN, save_filename)

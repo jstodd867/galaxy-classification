@@ -126,7 +126,7 @@ def show_final_history(history):
     
     ax[0].legend(fontsize=12)
     ax[1].legend(fontsize=12)
-    plt.show()
+    #plt.show()
 
 if __name__=='__main__':
     CNN = create_CNN1((3,3))
