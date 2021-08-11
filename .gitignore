@@ -1,5 +1,6 @@
 data
 saved_models/archive
+imgs/archive
 *.ipynb_checkpoints
 *.DS_Store
 *.cpython-38.pyc

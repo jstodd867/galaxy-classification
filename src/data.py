@@ -28,8 +28,9 @@ class Galaxies():
         ax.set_xticklabels(xtick_labels, rotation=60)
         ax.set_title('Class Occurrences in Dataset')
         plt.tight_layout()
-        #plt.savefig('imgs/class_occurrences_pres.png')
-        #plt.show()
+        #plt.savefig('imgs/class_occurrences.png')
+        plt.show()
+        plt.close()
     
     def load_data(self):
         with h5py.File(self.path, 'r') as F:
@@ -60,7 +61,8 @@ class Galaxies():
             plot.set_title(self.class_dict[self.labels[plt_idx]], fontsize=14)
             plot.axis('off')
         #plt.savefig('imgs/class_examples_pres.png')
-        #plt.show()
+        plt.show()
+        plt.close()
 
     def scale_data(self, data):
         return data / 255.0
@@ -71,18 +73,16 @@ class Galaxies():
         return resized_ims.numpy()[:,low:high, low:high, :]
 
 if __name__=='__main__':
-    color = 'white'
-    plt.rcParams.update({'text.color' : color,
-                     'axes.labelcolor' : color,
-                     'xtick.color' : color,
-                     'ytick.color' : color})
-    
+    # Change global variable for plot font size
     plt.rcParams.update({'font.size': 16})
 
+    # Load data
     data = Galaxies('data/Galaxy10_DECals.h5')
     images, labels = data.load_data()
 
+    # Plot a random image from each class
     data.plot_few(rand=True)
-    #data.plot_few(class_subset=0, rand=True)
+
+    # Plot totals for each galaxy type
     fig, ax = plt.subplots(figsize=(10,8))
     data.count_classes(labels,ax)   
