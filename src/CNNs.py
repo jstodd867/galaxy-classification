@@ -12,60 +12,7 @@ keras = tf.keras
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 from keras.wrappers.scikit_learn import KerasClassifier
 
-def create_CNN1(kernel_size = (5,5), in_shape = (64,64,3), drop_out = 0):
-
-    model = keras.models.Sequential([
-        keras.layers.Conv2D(16, kernel_size, activation='relu',
-                            input_shape=in_shape, padding = "same"),
-        keras.layers.MaxPooling2D((2, 2))
-    ])
-    
-
-    model.add(keras.layers.Conv2D(32, kernel_size, activation = 'relu', padding = 'same'))
-    model.add(keras.layers.MaxPool2D(2,2))
-
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(128, activation = 'relu'))
-    # Output Layer
-    model.add(keras.layers.Dense(10,  activation = "softmax"))
-    # Compile model
-    model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-    return model
-
-def create_CNN2(kernel_size = (5,5), in_shape = (64,64,3), drop_out = 0):
-    # Layer 1
-    model = keras.models.Sequential([
-        keras.layers.Conv2D(8, kernel_size, activation='relu',
-                            input_shape=in_shape, padding = "same"),
-        keras.layers.MaxPooling2D((2, 2))
-    ])
-    #
-    #model.add(keras.layers.Conv2D(8, kernel_size, activation = 'relu', padding = 'same'))
-    #model.add(keras.layers.MaxPool2D(2,2))
-    
-    # Layer 2
-    model.add(keras.layers.Conv2D(16, kernel_size, activation = 'relu', padding = 'same'))
-    model.add(keras.layers.MaxPool2D(2,2))
-    #model.add(keras.layers.Dropout(drop_out))
-    # Layer 3
-    model.add(keras.layers.Conv2D(16, kernel_size, activation = 'relu', padding = 'same'))
-    model.add(keras.layers.MaxPool2D(2,2))
-    model.add(keras.layers.Dropout(drop_out))
-    model.add(keras.layers.Flatten())
-    # Layer 4
-    model.add(keras.layers.Dense(64, activation = 'relu'))
-    #model.add(keras.layers.Dropout(drop_out))
-    # Layer 5
-    model.add(keras.layers.Dense(10,  activation = "softmax"))
-    
-    model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-    return model
-
-def create_CNN5(kernel_size=(3,3), in_shape=(64,64,3), drop_out=0.2, lr = 0.001, l2_reg=0):
+def create_CNN(kernel_size=(3,3), in_shape=(64,64,3), drop_out=0.2, lr = 0.001, l2_reg=0):
     # Layer 1
     model = keras.models.Sequential([
     keras.layers.Conv2D(32, kernel_size, activation='relu',
@@ -138,5 +85,5 @@ def plot_cm(y_true, y_predict, color_map = 'plasma'):
     plt.show()
 
 if __name__=='__main__':
-    CNN = create_CNN1((3,3))
+    CNN = create_CNN((3,3))
     CNN.summary()
