@@ -2,6 +2,14 @@
 
 ## Introduction
 
+## Code Organization
+
+The code is in the <a href="https://github.com/jstodd867/landsat-classification/tree/main/src">src directory</a> and is organized as follows:
+
+<li><a href="https://github.com/jstodd867/galaxy-classification/blob/main/src/data.py">data.py</a>:  class to load, pre-process, and visualize the data</li>
+<li><a href="https://github.com/jstodd867/galaxy-classification/blob/main/src/models.py">CNNs.py</a>:  helper functions to create CNN and display results</li>
+<li><a href="https://github.com/jstodd867/galaxy-classification/blob/main/src/run.py">run.py</a>:  main script to run to re-produce results</li>
+
 ## Data
 The data are publicly available <a href="https://astronn.readthedocs.io/en/latest/galaxy10.html">here</a>.  The data file is too large to store on GitHub. To use the code in this repo, download the .h5 file from the link provided and store it in the data folder.
 
