@@ -65,5 +65,16 @@ The confusion matrix below provides insight into the CNN's performance on the te
 
 <img src="https://github.com/jstodd867/galaxy-classification/blob/main/imgs/confusion_matrix.png">
 
-The values on the diagonal represent the percentage of the true class occurrences that were correctly predicted.  From these numbers, it is clear that the classifier performs worst on classes 0, 4, 6, and 7.  These classes correspond to:  disturbed, cigar-shaped smooth, unbarred tight spiral, and unbarred loose spiral.  Taking a closer look at these classes, it is not surprising that they have the highest misclassification rates.
+The values on the diagonal represent the percentage of the true class occurrences that were correctly predicted.  From these numbers, it is clear that the classifier performs worst on classes 0, 4, 6, and 7.  These classes correspond to:  disturbed, cigar-shaped smooth, unbarred tight spiral, and unbarred loose spiral.  Taking a closer look at these classes, it is not surprising that they have the highest misclassification rates.  The latter two categories are very similar and it is difficult for the human eye to distinguish these from each other.  The cigar-shaped smooth category is very similar in appearance to the third category (in-between round smooth); distinguishing between these two categories is also tough for the human eye.  The confusion matrix shows that the largest percentage of misclassifications, 15%, are attributed to the in-between round smooth class.  Finally, the disturbed class by far has the highest error rates.  Not only is this the class with the smallest relative amount of instances inthe data set, but it is also visually difficult to distinguish from several of the other classes.  A sample of 10 images from this class are shown below, for comparison with the plot in the Data Exploration section.
 
+<img src="https://github.com/jstodd867/galaxy-classification/blob/main/imgs/Disturbed_sample.png">
+
+## Conclusions and Next Steps
+
+The convolutional neural network designed and trained for classifying this data performed with 81% accuracy.  As would be expected, transfer learning utilizing popular pre-trained convolutional neural networks like VGG16 and Inception did not perform as well.
+
+Next steps include:
+
+<li> Targeted Data Augmentation - Increasing the artificial augmentation of the training data with scaled and rotated versions of the classes with the highest misclassification rates (e.g., disturbed, cigar-shaped smooth)</li>
+<li> Ensemble methods incorporating other model types </li>
+<li> Completing a Flask app that predicts the galaxy type for an uploaded image </li>
